@@ -2,9 +2,9 @@ name: Gửi thời tiết hàng ngày
 
 on:
   schedule:
-    - cron: '0 23 * * *'  # 23:00 UTC = 6:00 sáng giờ Việt Nam
-  workflow_dispatch:       # cho phép chạy thủ công để test
-
+    - cron: '0 23 * * *'  # 6:00 sáng giờ Việt Nam
+    - cron: '0 5 * * *'   # 12:00 trưa giờ Việt Nam
+  workflow_dispatch:
 jobs:
   send-weather:
     runs-on: ubuntu-latest
