@@ -1,0 +1,27 @@
+name: Gửi thời tiết hàng ngày
+
+on:
+  schedule:
+    - cron: '0 23 * * *'  # 23:00 UTC = 6:00 sáng giờ Việt Nam
+  workflow_dispatch:       # cho phép chạy thủ công để test
+
+jobs:
+  send-weather:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Cài thư viện
+        run: pip install requests
+
+      - name: Chạy script
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
+          RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+        run: python Test_APIWeather.py
